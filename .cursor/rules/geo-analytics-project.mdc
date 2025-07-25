@@ -1,0 +1,91 @@
+---
+description: This is useful when deciding on new components or imports to use for back and front end components, or anything involving API key setting.
+alwaysApply: false
+---
+# Geo Analytics Dashboard Rules
+
+## Project Overview
+This is a self-hostable dashboard for tracking brand mentions in LLM outputs compared to competitors. Built with React/shadcn/ui frontend and Python/Supabase backend.
+
+## Tech Stack
+- **Frontend**: React + TypeScript + shadcn/ui + Tailwind CSS
+- **Backend**: Python + FastAPI + Supabase
+- **Database**: Supabase (PostgreSQL)
+- **LLM Integration**: OpenAI, Anthropic, Google Gemini APIs
+
+## Project Structure
+```
+geo_analytics/
+├── frontend/          # React application
+│   ├── src/
+│   │   ├── components/     # shadcn/ui components
+│   │   ├── pages/         # Page components
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── lib/           # Utilities and API clients
+│   │   └── types/         # TypeScript type definitions
+│   ├── public/
+│   └── package.json
+├── backend/           # Python FastAPI application
+│   ├── app/
+│   │   ├── api/           # API route handlers
+│   │   ├── models/        # Pydantic models
+│   │   ├── services/      # Business logic
+│   │   ├── database/      # Database utilities
+│   │   └── core/          # Configuration and security
+│   ├── requirements.txt
+│   └── main.py
+├── database/          # Supabase migrations and schemas
+└── docker-compose.yml # For local development
+```
+
+## Development Guidelines
+
+### Frontend Standards
+- Use TypeScript for all components
+- Implement shadcn/ui components consistently
+- Store API keys securely in frontend state (encrypted)
+- Use React Query for API state management
+- Implement proper error handling with user-friendly messages
+
+### Backend Standards
+- Use FastAPI with async/await patterns
+- Implement proper request/response models with Pydantic
+- Use dependency injection for database connections
+- Implement comprehensive error handling
+- Add request logging and monitoring
+
+### Security Requirements
+- **API Keys**: Store encrypted in frontend, never in backend database
+- **Database**: Use Supabase RLS (Row Level Security)
+- **Authentication**: Implement user sessions
+- **CORS**: Configure properly for frontend-backend communication
+
+### Database Schema Patterns
+- `users` - User accounts and business information
+- `competitors` - Discovered and manually added competitors
+- `prompts` - Generated and custom prompts for testing
+- `llm_responses` - Raw responses from LLM APIs
+- `analytics` - Processed metrics and brand mention counts
+- `api_configurations` - User's LLM API preferences (no keys stored)
+
+### LLM Integration Patterns
+- **Competitor Discovery**: Use web search + LLM analysis
+- **Prompt Generation**: Context-aware prompt creation based on business sector
+- **Response Analysis**: Extract brand mentions using NLP techniques
+- **Multi-Model Testing**: Support OpenAI, Anthropic, Gemini simultaneously
+
+### UI/UX Guidelines
+- Clean, modern dashboard design
+- Clear data visualization for brand mention analytics
+- Intuitive competitor and prompt management
+- Real-time progress indicators for LLM processing
+- Mobile-responsive design
+
+### Code Organization
+- Keep components small and focused
+- Use custom hooks for complex state logic
+- Implement proper error boundaries
+- Add comprehensive TypeScript types
+- Document API endpoints with OpenAPI/Swagger
+
+This is a privacy-focused, self-hostable solution where users maintain control of their API keys and data.
