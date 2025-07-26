@@ -1,15 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // Pages
 import OnboardingPage from './pages/OnboardingPage';
 import DashboardPage from './pages/DashboardPage';
-import CompetitorsPage from './pages/CompetitorsPage';
-import PromptsPage from './pages/PromptsPage';
-import AnalyticsPage from './pages/AnalyticsPage';
-import SettingsPage from './pages/SettingsPage';
 
 // Components
 import Layout from './components/Layout';
@@ -53,10 +49,8 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Navigate to="/dashboard" replace />} />
                       <Route path="/dashboard" element={<DashboardPage />} />
-                      <Route path="/competitors" element={<CompetitorsPage />} />
-                      <Route path="/prompts" element={<PromptsPage />} />
-                      <Route path="/analytics" element={<AnalyticsPage />} />
-                      <Route path="/settings" element={<SettingsPage />} />
+                      {/* TODO: Add other pages when implemented */}
+                      <Route path="/*" element={<Navigate to="/dashboard" replace />} />
                     </Routes>
                   </Layout>
                 )

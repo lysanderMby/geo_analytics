@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 
 export default function DashboardPage() {
   const [currentUser] = useLocalStorage<User | null>('current_user', null);
-  const { data: dashboardData, isLoading, error } = useDashboard(currentUser?.id || '');
+  const { data: dashboardResponse, isLoading, error } = useDashboard(currentUser?.id || '');
+  const dashboardData = dashboardResponse?.data;
 
   if (isLoading) {
     return (

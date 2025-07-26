@@ -8,12 +8,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { useCreateUser } from '../hooks/useApi';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { storeApiKey } from '../lib/encryption';
-import { OnboardingData } from '../types';
+import { OnboardingData, User } from '../types';
 
 export default function OnboardingPage() {
   const navigate = useNavigate();
   const createUserMutation = useCreateUser();
-  const [, setCurrentUser] = useLocalStorage('current_user', null);
+  const [, setCurrentUser] = useLocalStorage<User | null>('current_user', null);
   
   const [step, setStep] = useState<'business' | 'api-keys'>('business');
   const [businessData, setBusinessData] = useState<OnboardingData>({

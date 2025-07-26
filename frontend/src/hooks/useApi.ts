@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from 'react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { 
   userApi, 
   competitorApi, 
@@ -184,15 +184,20 @@ export const useLLMResponse = (userId: string, responseId: string) => {
 
 export const useTestPrompt = () => {
   const queryClient = useQueryClient()
-  return useMutation(llmResponseApi.testPrompt, {
+  return useMutation({
+    mutationFn: ({ userId, promptId, data }: { userId: string; promptId: string; data: any }) => 
+      llmResponseApi.testPrompt(userId, promptId, data),
     onSuccess: (_, { userId }) => {
-      queryClient.invalidateQueries(['llm-responses', userId])
+      queryClient.invalidateQueries({ queryKey: ['llm-responses', userId] })
     },
   })
 }
 
 export const useStartBulkTest = () => {
-  return useMutation(llmResponseApi.startBulkTest)
+  return useMutation({
+    mutationFn: ({ userId, data }: { userId: string; data: any }) => 
+      llmResponseApi.startBulkTest(userId, data)
+  })
 }
 
 export const useBulkTestStatus = (userId: string, testId: string, enabled: boolean = true) => {
@@ -219,10 +224,12 @@ export const useDashboard = (userId: string) => {
 
 export const useAnalyzeResponses = () => {
   const queryClient = useQueryClient()
-  return useMutation(analyticsApi.analyzeResponses, {
-    onSuccess: (_, { userId }) => {
-      queryClient.invalidateQueries(['analytics', userId])
-      queryClient.invalidateQueries(['dashboard', userId])
+  return useMutation({
+    mutationFn: ({ userId, data }: { userId: string; data: any }) => 
+      analyticsApi.analyzeResponses(userId, data),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['analytics', variables.userId] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard', variables.userId] })
     },
   })
 }

@@ -1,5 +1,6 @@
 // Re-export API types
 export * from '../lib/api'
+import type { User } from '../lib/api'
 
 // Additional frontend-specific types
 export interface OnboardingData {
